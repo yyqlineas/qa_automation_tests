@@ -1,0 +1,14 @@
+{
+  "database": {
+    "host": "localhost",
+    "port": 5432,
+    "dbname": "your_database",
+    "user": "your_username",
+    "password": "your_password"
+  },
+  "filters": {
+    "date_column": "incident_created_date",
+    "date_format": "%Y-%m-%d %H:%M:%S",
+    "comments": "Modifica estos valores según tu cliente y necesidades. El formato de fecha debe coincidir con el formato en tu base de datos."
+  }
+}

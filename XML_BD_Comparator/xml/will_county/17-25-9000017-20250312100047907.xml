@@ -1,0 +1,125 @@
+<Incident
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<RunNumber>17-25-9000017</RunNumber>
+	<IncidentNumber>1725031200000039</IncidentNumber>
+	<ReportNumber>17-25-9000017</ReportNumber>
+	<AgencyID>17</AgencyID>
+	<AgencyName>NORTHWEST HOMER FIRE PROT DIST</AgencyName>
+	<fdid>?</fdid>
+	<Location>
+		<AddressType>1</AddressType>
+		<CommonPlace>NORTHWEST HOMER FIRE STATION 2</CommonPlace>
+		<Location>13010 W 143RD ST</Location>
+		<StreetNumber>13010</StreetNumber>
+		<StreetDirection>W</StreetDirection>
+		<StreetPrefix>W</StreetPrefix>
+		<StreetName>143RD</StreetName>
+		<StreetType>ST</StreetType>
+		<LocationName>NORTHWEST HOMER FIRE STATION 2</LocationName>
+		<AlternateLocation>AtLoc</AlternateLocation>
+		<City>HOMER GLEN</City>
+		<StateName>IL</StateName>
+		<ZipCode>60491</ZipCode>
+		<Subdivision>W1_17_</Subdivision>
+		<LowCrossStreet>S BELL RD</LowCrossStreet>
+		<HighCrossStreet>S TOWN CENTER DR</HighCrossStreet>
+		<Latitude>41.62945722</Latitude>
+		<Longitude>-87.93630511</Longitude>
+	</Location>
+	<Area>
+		<BeatName>17H2</BeatName>
+		<AreaName>H2</AreaName>
+	</Area>
+	<Class>
+		<IncidentTypeCode>BRUSHF</IncidentTypeCode>
+		<IncidentTypeDescription>BRUSHF-BRUSH FIRE</IncidentTypeDescription>
+		<Source>TELEPHONE</Source>
+		<Priority>1</Priority>
+	</Class>
+	<IncidentTimes>
+		<IncidentCreationTime>2025-03-12T09:59:34</IncidentCreationTime>
+		<FirstUnitDispatchedTime>2025-03-12T09:59:47</FirstUnitDispatchedTime>
+		<FirstUnitEnrouteTime>2025-03-12T09:59:53</FirstUnitEnrouteTime>
+		<FirstUnitArrivedTime>2025-03-12T09:59:56</FirstUnitArrivedTime>
+		<IncidentClosedTime>2025-03-12T10:00:01</IncidentClosedTime>
+	</IncidentTimes>
+	<Dispositions>
+		<Disposition>
+			<Time>2025-03-12T10:00:01</Time>
+			<Code>CL</Code>
+			<CodeDescription>Close Call</CodeDescription>
+			<CallSign>1721</CallSign>
+		</Disposition>
+		<Disposition>
+			<Time>2025-03-12T10:00:01</Time>
+			<Code>CL</Code>
+			<CodeDescription>Close Call</CodeDescription>
+			<CallSign>1724</CallSign>
+		</Disposition>
+	</Dispositions>
+	<Units>
+		<Unit>
+			<Agency>17</Agency>
+			<CallSign>1724</CallSign>
+			<TripNumber>1</TripNumber>
+			<IsPrimaryUnit>Y</IsPrimaryUnit>
+			<DispatchTime>2025-03-12T09:59:47</DispatchTime>
+			<EnrouteTime>2025-03-12T09:59:53</EnrouteTime>
+			<OnSceneTime>2025-03-12T09:59:56</OnSceneTime>
+			<ClearTime>2025-03-12T10:00:01</ClearTime>
+			<IsCanceled>N</IsCanceled>
+			<Personnel>
+				<Person>
+					<AgencyID>17</AgencyID>
+					<PersonnelCode>NWHF1724</PersonnelCode>
+					<FirstName>NHFPD</FirstName>
+					<LastName>1724</LastName>
+				</Person>
+			</Personnel>
+		</Unit>
+		<Unit>
+			<Agency>17</Agency>
+			<CallSign>1721</CallSign>
+			<TripNumber>1</TripNumber>
+			<IsPrimaryUnit>N</IsPrimaryUnit>
+			<DispatchTime>2025-03-12T09:59:47</DispatchTime>
+			<EnrouteTime>2025-03-12T09:59:53</EnrouteTime>
+			<OnSceneTime>2025-03-12T09:59:56</OnSceneTime>
+			<ClearTime>2025-03-12T10:00:01</ClearTime>
+			<IsCanceled>N</IsCanceled>
+			<Personnel>
+				<Person>
+					<AgencyID>17</AgencyID>
+					<PersonnelCode>NWHF1721</PersonnelCode>
+					<FirstName>NHFPD</FirstName>
+					<LastName>1721</LastName>
+				</Person>
+			</Personnel>
+		</Unit>
+	</Units>
+	<Comments>
+		<AllComments>TESTING FIRST DUE - 911 OFFICE Beat 17H2: Northwest Homer Fire Box Cards: Fire- 172    EMS- 175    TRT- 176     Water- 178    Hazmat- 179    Active Threat- 17X[Beat]</AllComments>
+		<Comment>
+			<Text>TESTING FIRST DUE - 911 OFFICE</Text>
+			<Time>2025-03-12T09:59:34</Time>
+			<UserId>kcravenWM</UserId>
+			<DeviceName>ADMWS21</DeviceName>
+		</Comment>
+		<Comment>
+			<Text>Beat 17H2: Northwest Homer Fire Box Cards: Fire- 172    EMS- 175    TRT- 176     Water- 178    Hazmat- 179    Active Threat- 17X[Beat]</Text>
+			<Time>2025-03-12T09:59:34</Time>
+			<UserId>SYSTEM</UserId>
+			<DeviceName>SystemDevice</DeviceName>
+		</Comment>
+	</Comments>
+	<CAD>
+		<IncidentNumberAgency>17</IncidentNumberAgency>
+		<IncidentNumber>1725031200000030</IncidentNumber>
+		<ReportNumberAgency>17</ReportNumberAgency>
+		<ReportNumber>17-25-0000017</ReportNumber>
+		<UseReportNumber>Y</UseReportNumber>
+		<SubmissionTime>2025-03-12T10:00:47.910</SubmissionTime>
+		<Destination>?</Destination>
+	</CAD>
+</Incident>

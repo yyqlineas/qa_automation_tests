@@ -1,0 +1,81 @@
+{
+  "config": {
+    "version": "1.0.1",
+    "name": "Sistema de Gestión",
+    "debug": false,
+    "new_feature": "activado"
+  },
+  "database": {
+    "host": "servidor.empresa.com",
+    "port": 5432,
+    "name": "mi_database",
+    "credentials": {
+      "username": "admin",
+      "password": "nueva_contraseña456"
+    }
+  },
+  "features": {
+    "authentication": true,
+    "logging": {
+      "level": "DEBUG",
+      "file": "app.log",
+      "rotation": "daily"
+    },
+    "cache": {
+      "enabled": true,
+      "ttl": 7200
+    },
+    "notifications": {
+      "email": true,
+      "push": false
+    }
+  },
+  "example_data": {
+    "users": [
+      {
+        "id": 501,
+        "name": "Carlos Diferente",
+        "email": "carlos.diferente@test.com"
+      },
+      {
+        "id": 502,
+        "name": "Ana Diferente",
+        "email": "ana.diferente@test.com"
+      },
+      {
+        "id": 503,
+        "name": "Luis Extra",
+        "email": "luis.extra@test.com"
+      }
+    ],
+    "products": [
+      {"id": 10, "name": "Producto X", "price": 500.25},
+      {"id": 20, "name": "Producto Y", "price": 750.90},
+      {"id": 30, "name": "Producto Z", "price": 1200.00}
+    ],
+    "orders": [
+      {"id": 1, "user_id": 501, "total": 1250.25}
+    ]
+  },
+  "users": [
+    {
+      "id": 1,
+      "name": "Juan Pérez",
+      "email": "juan.nuevo@ejemplo.com",
+      "roles": ["admin", "user"],
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "name": "María García",
+      "email": "maria@ejemplo.com",
+      "roles": ["user", "moderator"]
+    },
+    {
+      "id": 3,
+      "name": "Carlos López",
+      "email": "carlos@ejemplo.com",
+      "roles": ["user"]
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+REPORTE DE COMPARACIÓN DE ARCHIVOS JSON
+============================================================
+
+Fecha: 2025-09-04 12:27:49
+Archivo 1: ejemplo1.json
+Archivo 2: ejemplo2.json
+
+RESULTADO: Los archivos JSON tienen DIFERENCIAS
+
+ESTADÍSTICAS:
+• Total de elementos comparados: 33
+• Diferencias encontradas: 15
+• Secciones idénticas: 0
+• Secciones con diferencias: 4
+
+SECCIONES CON DIFERENCIAS:
+• config
+• database
+• features
+• users
+
+DETALLES DE TODAS LAS DIFERENCIAS:
+------------------------------------------------------------
+
+1. Ruta: users
+   Tipo: Longitud de lista diferente
+   Archivo 1: 2 elementos
+   Archivo 2: 3 elementos
+
+2. Ruta: users[0].email
+   Tipo: Valor diferente
+   Archivo 1: 'juan@ejemplo.com'
+   Archivo 2: 'juan.nuevo@ejemplo.com'
+
+3. Ruta: users[0].status
+   Tipo: Falta en archivo 1
+   Valor en archivo 2: 'active'
+
+4. Ruta: users[1].roles
+   Tipo: Longitud de lista diferente
+   Archivo 1: 1 elementos
+   Archivo 2: 2 elementos
+
+5. Ruta: users[1].roles[1]
+   Tipo: Elemento extra en archivo 2
+   Valor: 'moderator'
+
+6. Ruta: users[2]
+   Tipo: Elemento extra en archivo 2
+   Valor: {'id': 3, 'name': 'Carlos López', 'email': 'carlos@ejemplo.com', 'roles': ['user']}
+
+7. Ruta: features.logging.level
+   Tipo: Valor diferente
+   Archivo 1: 'INFO'
+   Archivo 2: 'DEBUG'
+
+8. Ruta: features.logging.rotation
+   Tipo: Falta en archivo 1
+   Valor en archivo 2: 'daily'
+
+9. Ruta: features.cache.ttl
+   Tipo: Valor diferente
+   Archivo 1: 3600
+   Archivo 2: 7200
+
+10. Ruta: features.notifications
+   Tipo: Falta en archivo 1
+   Valor en archivo 2: {'email': True, 'push': False}
+
+11. Ruta: config.debug
+   Tipo: Valor diferente
+   Archivo 1: True
+   Archivo 2: False
+
+12. Ruta: config.new_feature
+   Tipo: Falta en archivo 1
+   Valor en archivo 2: 'activado'
+
+13. Ruta: config.version
+   Tipo: Valor diferente
+   Archivo 1: '1.0.0'
+   Archivo 2: '1.0.1'
+
+14. Ruta: database.credentials.password
+   Tipo: Valor diferente
+   Archivo 1: 'secreto123'
+   Archivo 2: 'nueva_contraseña456'
+
+15. Ruta: database.host
+   Tipo: Valor diferente
+   Archivo 1: 'localhost'
+   Archivo 2: 'servidor.empresa.com'
+

@@ -1,0 +1,969 @@
+{
+    "templates": [
+        {
+            "name": "Omingo V1 SFTP Text Dispatch NFIRS Warr Acres Police Dispatch OK",
+            "cad_vendor": null,
+            "cad_system": null,
+            "cad_interface": null,
+            "dispatch_entity_name": null,
+            "comments": null,
+            "data_source": "sftp\/text",
+            "encoding": null,
+            "parser_type": "regex",
+            "object_type": "dispatch+nfirs",
+            "status_code": "enabled",
+            "example_data": [
+                {
+                    "name": "Example #1",
+                    "value": "V01.00.00\nINCI\t\t11\/13\/2024\t15:42:53\t0012585\t\t1\t1\tNW\t5912    \t41ST ST                  \t\t\t\t10             \t\t                         \t\t\t\tWARR ACRES               \t\t\t\t\t\t\t\t\tMEDICAL CALL                                                                                        \t11\/13\/2024\t15:43:48\t11\/13\/2024\t15:48:12\t\t\t11\/13\/2024\t15:58:45\t\t\t\t\t\t**11\/13\/2024 15:43 248** trouble breathing back hurts stoma 53 yom  **11\/13\/2024 15:54 248** p97\t\nUNIT\tN\tE25       \t\tT\t\t\t\t11\/13\/2024\t15:43:48\t11\/13\/2024\t15:45:33\t\t11\/13\/2024\t15:45:33\t11\/13\/2024\t15:48:12\t          \t        \t          \t        \t          \t        \t11\/13\/2024\t15:58:45\t11\/13\/2024\t15:58:45\t.18     \t\t\n",
+                    "expected_result": {
+                        "battDeptId": "",
+                        "dispatchType": "",
+                        "incidentTypeCode": "",
+                        "incidentTypeId": "",
+                        "placeName": "",
+                        "address": "",
+                        "unit": "",
+                        "crossStreets": "",
+                        "city": "",
+                        "stateCode": "",
+                        "longitude": "",
+                        "latitude": "",
+                        "dispatchUnitCodes": "",
+                        "callNotes": "",
+                        "xrefId": "",
+                        "nfirsIncidentNumber": "",
+                        "statusCode": "",
+                        "locationInfo": "",
+                        "venue": "",
+                        "createdAt": "",
+                        "command": "",
+                        "callerName": "",
+                        "radioChannel": "",
+                        "originalMessage": "",
+                        "psapCallAt": "",
+                        "alarmAt": "",
+                        "dispatchNotifiedAt": "",
+                        "callTransferredAt": "",
+                        "psapCallAnsweredAt": "",
+                        "alarms": "",
+                        "zipCode": "",
+                        "fdidNumber": "",
+                        "controlledAt": "",
+                        "callCompletedAt": "",
+                        "fireStationNum": "",
+                        "shiftName": "",
+                        "notificationType": "",
+                        "officerInCharge": "",
+                        "emdCardNumber": "",
+                        "emsDispatchPriority": "",
+                        "zone": "",
+                        "ofmLocationCode": "",
+                        "houseNum": "",
+                        "prefixDirection": "",
+                        "streetName": "",
+                        "streetType": "",
+                        "suffixDirection": "",
+                        "emsIncidentNumber": "",
+                        "emsResponseNumber": "",
+                        "aidTypeCode": "",
+                        "apparatus": "<br>Code: E25<br>Is Aid: false<br>Dispatched: 2024-11-13 21:43:48<br>Arrived: 2024-11-13 21:48:12<br>Cleared: 2024-11-13 21:58:45<br>Back in Service: 2024-11-13 21:58:45<br>Canceled: 2024-11-13 21:45:33<br>",
+                        "apparatus.unitCode": "",
+                        "apparatus.isAid": "",
+                        "apparatus.dispatchedAt": "",
+                        "apparatus.dispatchAckAt": "",
+                        "apparatus.enroutedAt": "",
+                        "apparatus.arrivedStagingAt": "",
+                        "apparatus.arrivedAt": "",
+                        "apparatus.leavedSceneAt": "",
+                        "apparatus.clearedAt": "",
+                        "apparatus.backInServiceAt": "",
+                        "apparatus.backHomeLocationAt": "",
+                        "apparatus.canceledAt": "",
+                        "apparatus.patientTransferredAt": "",
+                        "apparatus.patientArrivedAt": "",
+                        "apparatus.arrivedDestinationLandingAreaAt": "",
+                        "apparatus.patientArrivedDestinationAt": "",
+                        "apparatus.destinationPatientTransferCareAt": "",
+                        "apparatus.canceledStageCode": "",
+                        "apparatus.beginningOdo": "",
+                        "apparatus.onSceneOdo": "",
+                        "apparatus.patientDestOdo": "",
+                        "apparatus.endingOdo": "",
+                        "apparatus.responseMode": "",
+                        "personnel": "",
+                        "personnel.firstName": "",
+                        "personnel.lastName": "",
+                        "personnel.middleInitial": "",
+                        "personnel.agencyId": "",
+                        "personnel.xrefId": "",
+                        "narrative": "",
+                        "narrative.text": "",
+                        "narrative.when": ""
+                    }
+                },
+                {
+                    "name": "Example #2",
+                    "value": "V01.00.00\nINCI\t\t11\/06\/2024\t13:23:41\t0012307\t\t1\t1\tN \t5933    \tASBURY AVE               \t\t\t\t               \t\t                         \t\t\t\tWARR ACRES               \t\t\t\t\t\t\t\t\tALARM                                             FIRE\/SMOKE                                        \t11\/06\/2024\t13:24:32\t11\/06\/2024\t13:29:47\t\t\t11\/06\/2024\t13:30:19\t\t\t\t\t\t**11\/06\/2024 13:24 210** hallway smoke detector **11\/06\/2024 13:29 210** small single story residential structure. nothing visible from outiside. invest mode\t\nUNIT\tN\tE23       \t\tT\t\t\t\t11\/06\/2024\t13:24:32\t          \t        \t\t\t\t          \t        \t          \t        \t          \t        \t          \t        \t11\/06\/2024\t13:29:49\t\t\t\t\t\nUNIT\tN\tE25       \t\tT\t\t\t\t          \t        \t11\/06\/2024\t13:25:54\t\t\t\t11\/06\/2024\t13:29:47\t          \t        \t          \t        \t          \t        \t11\/06\/2024\t13:30:19\t\t\t.01     \t\t\n",
+                    "expected_result": {
+                        "battDeptId": "",
+                        "dispatchType": "",
+                        "incidentTypeCode": "",
+                        "incidentTypeId": "",
+                        "placeName": "",
+                        "address": "",
+                        "unit": "",
+                        "crossStreets": "",
+                        "city": "",
+                        "stateCode": "",
+                        "longitude": "",
+                        "latitude": "",
+                        "dispatchUnitCodes": "",
+                        "callNotes": "",
+                        "xrefId": "",
+                        "nfirsIncidentNumber": "",
+                        "statusCode": "",
+                        "locationInfo": "",
+                        "venue": "",
+                        "createdAt": "",
+                        "command": "",
+                        "callerName": "",
+                        "radioChannel": "",
+                        "originalMessage": "",
+                        "psapCallAt": "",
+                        "alarmAt": "",
+                        "dispatchNotifiedAt": "",
+                        "callTransferredAt": "",
+                        "psapCallAnsweredAt": "",
+                        "alarms": "",
+                        "zipCode": "",
+                        "fdidNumber": "",
+                        "controlledAt": "",
+                        "callCompletedAt": "",
+                        "fireStationNum": "",
+                        "shiftName": "",
+                        "notificationType": "",
+                        "officerInCharge": "",
+                        "emdCardNumber": "",
+                        "emsDispatchPriority": "",
+                        "zone": "",
+                        "ofmLocationCode": "",
+                        "houseNum": "",
+                        "prefixDirection": "",
+                        "streetName": "",
+                        "streetType": "",
+                        "suffixDirection": "",
+                        "emsIncidentNumber": "",
+                        "emsResponseNumber": "",
+                        "aidTypeCode": "",
+                        "apparatus": "<br>Code: E23<br>Is Aid: false<br>Dispatched: 2024-11-06 19:24:32<br>Cleared: 2024-11-06 19:29:49<br><br>Code: E25<br>Is Aid: false<br>Arrived: 2024-11-06 19:29:47<br>Cleared: 2024-11-06 19:30:19<br>",
+                        "apparatus.unitCode": "",
+                        "apparatus.isAid": "",
+                        "apparatus.dispatchedAt": "",
+                        "apparatus.dispatchAckAt": "",
+                        "apparatus.enroutedAt": "",
+                        "apparatus.arrivedStagingAt": "",
+                        "apparatus.arrivedAt": "",
+                        "apparatus.leavedSceneAt": "",
+                        "apparatus.clearedAt": "",
+                        "apparatus.backInServiceAt": "",
+                        "apparatus.backHomeLocationAt": "",
+                        "apparatus.canceledAt": "",
+                        "apparatus.patientTransferredAt": "",
+                        "apparatus.patientArrivedAt": "",
+                        "apparatus.arrivedDestinationLandingAreaAt": "",
+                        "apparatus.patientArrivedDestinationAt": "",
+                        "apparatus.destinationPatientTransferCareAt": "",
+                        "apparatus.canceledStageCode": "",
+                        "apparatus.beginningOdo": "",
+                        "apparatus.onSceneOdo": "",
+                        "apparatus.patientDestOdo": "",
+                        "apparatus.endingOdo": "",
+                        "apparatus.responseMode": "",
+                        "personnel": "",
+                        "personnel.firstName": "",
+                        "personnel.lastName": "",
+                        "personnel.middleInitial": "",
+                        "personnel.agencyId": "",
+                        "personnel.xrefId": "",
+                        "narrative": "",
+                        "narrative.text": "",
+                        "narrative.when": ""
+                    }
+                },
+                {
+                    "name": "Example #3",
+                    "value": "V01.00.00\nINCI\t\t11\/21\/2024\t08:36:21\t0012831\t\t1\t1\t  \tNW EXP  \tCHEROKEE PLAZA           \t\t\t\t               \t\t                         \t\t\t\t                         \t\t\t\t\t\t\t\t\tSIGNAL 82                                                                                           \t11\/21\/2024\t08:38:29\t11\/21\/2024\t08:41:59\t\t\t          \t        \t\t\t\t\t\t**11\/21\/2024 08:37 210** nw expressway\/cherokee pl 4 vehicle in intersection chevy car, poss unconsious truck with trailer stopped in median white car **11\/21\/2024 08:41 210** ocpd says 3 wreckers **11\/21\/2024 08:43 210** pafford en route **11\/21\/2024 08:59 210** twister en route for impound on diesel with loaded trailer **11\/21\/2024 09:01 210** one in custody **11\/21\/2024 09:26 210** wa number 27912\t\nUNIT\tN\tE25       \t\tT\t\t\t\t11\/21\/2024\t08:39:22\t11\/21\/2024\t08:40:28\t\t\t\t11\/21\/2024\t08:45:08\t          \t        \t          \t        \t          \t        \t11\/21\/2024\t09:36:28\t\t\t.86     \t\t\n",
+                    "expected_result": {
+                        "battDeptId": "",
+                        "dispatchType": "",
+                        "incidentTypeCode": "",
+                        "incidentTypeId": "",
+                        "placeName": "",
+                        "address": "",
+                        "unit": "",
+                        "crossStreets": "",
+                        "city": "",
+                        "stateCode": "",
+                        "longitude": "",
+                        "latitude": "",
+                        "dispatchUnitCodes": "",
+                        "callNotes": "",
+                        "xrefId": "",
+                        "nfirsIncidentNumber": "",
+                        "statusCode": "",
+                        "locationInfo": "",
+                        "venue": "",
+                        "createdAt": "11\/21\/2024\t08:36:21",
+                        "command": "",
+                        "callerName": "",
+                        "radioChannel": "",
+                        "originalMessage": "",
+                        "psapCallAt": "",
+                        "alarmAt": "11\/21\/2024\t08:36:21",
+                        "dispatchNotifiedAt": "",
+                        "callTransferredAt": "",
+                        "psapCallAnsweredAt": "",
+                        "alarms": "",
+                        "zipCode": "",
+                        "fdidNumber": "",
+                        "controlledAt": "",
+                        "callCompletedAt": "",
+                        "fireStationNum": "",
+                        "shiftName": "",
+                        "notificationType": "",
+                        "officerInCharge": "",
+                        "emdCardNumber": "",
+                        "emsDispatchPriority": "",
+                        "zone": "",
+                        "ofmLocationCode": "",
+                        "houseNum": "",
+                        "prefixDirection": "",
+                        "streetName": "",
+                        "streetType": "",
+                        "suffixDirection": "",
+                        "emsIncidentNumber": "",
+                        "emsResponseNumber": "",
+                        "aidTypeCode": "",
+                        "apparatus": "",
+                        "apparatus.unitCode": "",
+                        "apparatus.isAid": "",
+                        "apparatus.dispatchedAt": "",
+                        "apparatus.dispatchAckAt": "",
+                        "apparatus.enroutedAt": "",
+                        "apparatus.arrivedStagingAt": "",
+                        "apparatus.arrivedAt": "",
+                        "apparatus.leavedSceneAt": "",
+                        "apparatus.clearedAt": "",
+                        "apparatus.backInServiceAt": "",
+                        "apparatus.backHomeLocationAt": "",
+                        "apparatus.canceledAt": "",
+                        "apparatus.patientTransferredAt": "",
+                        "apparatus.patientArrivedAt": "",
+                        "apparatus.arrivedDestinationLandingAreaAt": "",
+                        "apparatus.patientArrivedDestinationAt": "",
+                        "apparatus.destinationPatientTransferCareAt": "",
+                        "apparatus.canceledStageCode": "",
+                        "apparatus.beginningOdo": "",
+                        "apparatus.onSceneOdo": "",
+                        "apparatus.patientDestOdo": "",
+                        "apparatus.endingOdo": "",
+                        "apparatus.responseMode": "",
+                        "personnel": "",
+                        "personnel.firstName": "",
+                        "personnel.lastName": "",
+                        "personnel.middleInitial": "",
+                        "personnel.agencyId": "",
+                        "personnel.xrefId": "",
+                        "narrative": "",
+                        "narrative.text": "",
+                        "narrative.when": ""
+                    }
+                },
+                {
+                    "name": "Example #4",
+                    "value": "V01.00.00\nINCI\tFDID\t08\/25\/2025\t02:48:52\t39987\tVF75\t1\t1\tW\t2920\tHIGHWAY 7\t \t \t \t \t \t \t \t \t \tVAUGHAN\t \t \t \t760\t \t76\t4850212\t618906\tALARM2\tC\t08\/25\/2025\t02:47:50\t08\/25\/2025\t02:53:25\t\t\t\t\t\t1\tALARM2\t5\t76\t Entered by V7493 On 2025-08-25 02:48:52  2920 HIGHWAY 7 W             Entered by V7671 On 2025-08-25 02:48:15  GEN FIRE ZONE 1    Entered by V7493 On 2025-08-25 02:49:19  TG A6    Entered by V7671 On 2025-08-25 02:50:05  SHOWING 37TH FL STAIR AS PER SECURITY-911 CALLER    Entered by V7671 On 2025-08-25 02:50:09  NO RESTORAL    Entered by V7493 On 2025-08-25 02:53:14  NO REPEATER    Entered by V7493 On 2025-08-25 02:53:41  CORRECTION TO LAST MSG- NO REPEATER ON 767    Entered by V7493 On 2025-08-25 02:54:02  759 ACTIVATED REPEATER    Entered by V7493 On 2025-08-25 02:56:16  CREW PROCEEDING TO 35TH FLOOR    Entered by V7493 On 2025-08-25 02:56:22  759 PROCEEDING TO LOBBY    Entered by V7493 On 2025-08-25 02:59:05  NO SIGNS OF FIRE 37TH FLOOR    Entered by V7493 On 2025-08-25 02:59:35  MANUAL PUL STN BY STAIRWELL A PER PANEL    Entered by V7493 On 2025-08-25 02:59:54  LOBBY TO SILENCE ALARM    Entered by V7493 On 2025-08-25 03:02:47  PANEL RESET    Entered by V7493 On 2025-08-25 03:19:36  RESET APPEARS SUCCESSFUL    Entered by V7493 On 2025-08-25 03:30:39  NO EMERGENCY    \t\nIVPH\tCAD\t833715-2060\t \t\nUNIT\tU\tR759\t \t \t \t \t \t08\/25\/2025\t02:48:52\t08\/25\/2025\t02:50:15\t \t \t \t08\/25\/2025\t02:55:48\t\t\t\t\t\t\t08\/25\/2025\t03:23:59\t08\/25\/2025\t03:23:59\t \t \t\nUNIT\tU\tPL767\t \t \t \t \t \t08\/25\/2025\t02:48:52\t08\/25\/2025\t02:50:50\t \t \t \t08\/25\/2025\t02:53:25\t\t\t\t\t\t\t08\/25\/2025\t03:30:25\t08\/25\/2025\t03:30:25\t \t \t\nUNIT\tU\tE751\t \t \t \t \t \t08\/25\/2025\t02:48:52\t08\/25\/2025\t02:51:47\t \t \t \t08\/25\/2025\t02:56:27\t\t\t\t\t\t\t08\/25\/2025\t03:08:52\t08\/25\/2025\t03:08:52\t \t \t\nUNIT\tU\tR729\t \t \t \t \t \t08\/25\/2025\t02:48:52\t08\/25\/2025\t02:51:10\t \t \t \t08\/25\/2025\t02:59:20\t\t\t\t\t\t\t08\/25\/2025\t03:03:30\t08\/25\/2025\t03:03:30\t \t \t\nUNIT\tU\tE721\t \t \t \t \t \t08\/25\/2025\t02:48:52\t08\/25\/2025\t02:51:53\t \t \t \t08\/25\/2025\t02:59:19\t\t\t\t\t\t\t08\/25\/2025\t03:03:15\t08\/25\/2025\t03:03:15\t \t \t\nUNIT\tU\tCH74\t \t \t \t \t \t08\/25\/2025\t02:48:52\t\t\t \t \t \t\t\t\t\t\t\t\t\t08\/25\/2025\t02:55:45\t08\/25\/2025\t02:55:45\t \t \t\nUSEI\t\t\t\t\t08\/25\/2025\t02:53:48\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t08\/25\/2025\t02:53:54\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t08\/25\/2025\t03:30:44\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1\n",
+                    "expected_result": {
+                        "battDeptId": "",
+                        "dispatchType": "",
+                        "incidentTypeCode": "",
+                        "incidentTypeId": "",
+                        "placeName": "",
+                        "address": "",
+                        "unit": "",
+                        "crossStreets": "",
+                        "city": "",
+                        "stateCode": "",
+                        "longitude": "",
+                        "latitude": "",
+                        "dispatchUnitCodes": "",
+                        "callNotes": "",
+                        "xrefId": "",
+                        "nfirsIncidentNumber": "",
+                        "statusCode": "",
+                        "locationInfo": "",
+                        "venue": "",
+                        "createdAt": "",
+                        "command": "",
+                        "callerName": "",
+                        "radioChannel": "",
+                        "originalMessage": "",
+                        "psapCallAt": "",
+                        "alarmAt": "",
+                        "dispatchNotifiedAt": "",
+                        "callTransferredAt": "",
+                        "psapCallAnsweredAt": "",
+                        "alarms": "",
+                        "zipCode": "",
+                        "fdidNumber": "",
+                        "controlledAt": "",
+                        "callCompletedAt": "",
+                        "fireStationNum": "",
+                        "shiftName": "",
+                        "notificationType": "",
+                        "officerInCharge": "",
+                        "emdCardNumber": "",
+                        "emsDispatchPriority": "",
+                        "zone": "",
+                        "ofmLocationCode": "",
+                        "houseNum": "",
+                        "prefixDirection": "",
+                        "streetName": "",
+                        "streetType": "",
+                        "suffixDirection": "",
+                        "emsIncidentNumber": "",
+                        "emsResponseNumber": "",
+                        "aidTypeCode": "",
+                        "apparatus": "",
+                        "apparatus.unitCode": "",
+                        "apparatus.isAid": "",
+                        "apparatus.dispatchedAt": "",
+                        "apparatus.dispatchAckAt": "",
+                        "apparatus.enroutedAt": "",
+                        "apparatus.arrivedStagingAt": "",
+                        "apparatus.arrivedAt": "",
+                        "apparatus.leavedSceneAt": "",
+                        "apparatus.clearedAt": "",
+                        "apparatus.backInServiceAt": "",
+                        "apparatus.backHomeLocationAt": "",
+                        "apparatus.canceledAt": "",
+                        "apparatus.patientTransferredAt": "",
+                        "apparatus.patientArrivedAt": "",
+                        "apparatus.arrivedDestinationLandingAreaAt": "",
+                        "apparatus.patientArrivedDestinationAt": "",
+                        "apparatus.destinationPatientTransferCareAt": "",
+                        "apparatus.canceledStageCode": "",
+                        "apparatus.beginningOdo": "",
+                        "apparatus.onSceneOdo": "",
+                        "apparatus.patientDestOdo": "",
+                        "apparatus.endingOdo": "",
+                        "apparatus.responseMode": "",
+                        "personnel": "",
+                        "personnel.firstName": "",
+                        "personnel.lastName": "",
+                        "personnel.middleInitial": "",
+                        "personnel.agencyId": "",
+                        "personnel.xrefId": "",
+                        "narrative": "",
+                        "narrative.text": "",
+                        "narrative.when": ""
+                    }
+                }
+            ],
+            "parser_options": {
+                "is_single_regex": false,
+                "has_secondary_regex": false,
+                "has_tertiary_regex": false,
+                "has_quaternary_regex": false,
+                "has_notification_regex": false,
+                "is_notification_when_single_not_match": false,
+                "has_update_regex": false,
+                "has_subject_regex": false,
+                "has_from_regex": false,
+                "has_ignore_regex": false,
+                "is_ignored_when_single_not_match": false,
+                "has_pre_processing_regexes": false,
+                "pre_processing_regexes": [],
+                "regexes": {
+                    "primary": "``",
+                    "secondary": "``",
+                    "tertiary": "``",
+                    "quaternary": "``",
+                    "subject": "``",
+                    "notification": "``",
+                    "update": "``",
+                    "from": "``",
+                    "ignore": "``",
+                    "batt_dept_id": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "dispatch_type": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){29}(?P<incident_type_code>[^\\t]*)`m",
+                        "replace_with": ""
+                    },
+                    "incident_type_code": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "dispatch_incident_type_id": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "place_name": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "address": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "unit": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){14}(?P<unit>[^\\t]*)`m",
+                        "replace_with": ""
+                    },
+                    "cross_streets": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){16}(?P<cross_streets>[^\\t]*)`m",
+                        "replace_with": ""
+                    },
+                    "city": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){20}(?P<city>[^\\t]*)`m",
+                        "replace_with": ""
+                    },
+                    "state_code": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){21}(?P<state_code>[^\\t]*)`m",
+                        "replace_with": ""
+                    },
+                    "longitude": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "latitude": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "dispatch_units": {
+                        "regex": "`^UNIT(?:[^\\t]*\\t){2}(?P<dispatch_units>[^\\t]*)`mg",
+                        "replace_with": ""
+                    },
+                    "call_notes": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){43,44}\\*{2}(?P<call_notes>[^\\t]*)`m",
+                        "replace_with": ""
+                    },
+                    "xref_id": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){4}(?P<xref_id>[^\\t]*)`m",
+                        "replace_with": ""
+                    },
+                    "nfirs_incident_number": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "status_code": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "location_info": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){7}(?P<location_info>[^\\t]*)`m",
+                        "replace_with": ""
+                    },
+                    "venue": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "created_at": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){2}(?P<created_at>\\d{2}\/\\d{2}\/\\d{4}\\s\\d{2}:\\d{2}:\\d{2})`m",
+                        "replace_with": ""
+                    },
+                    "command": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "caller_name": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "radio_channel": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "original_message": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "psap_call_at": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "alarm_at": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){2}(?P<alarm_at>\\d{2}\/\\d{2}\/\\d{4}\\s\\d{2}:\\d{2}:\\d{2})`m",
+                        "replace_with": ""
+                    },
+                    "dispatch_notified_at": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){2}(?P<dispatch_notified_at>\\d{2}\/\\d{2}\/\\d{4}\\s\\d{2}:\\d{2}:\\d{2})`m",
+                        "replace_with": ""
+                    },
+                    "call_transferred_at": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "psap_call_answered_at": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "alarms": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "zip_code": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "fdid_number": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "controlled_at": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){36}(?P<controlled_at>\\d{2}\/\\d{2}\/\\d{4}\\s\\d{2}:\\d{2}:\\d{2})`m",
+                        "replace_with": ""
+                    },
+                    "call_completed_at": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "fire_station_num": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "shift_name": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "notification_type": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "officer_in_charge": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "emd_card_number": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "ems_dispatch_priority": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "zone": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "ofm_location_code": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "house_num": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){9}(?P<house_num>[^\\t]*)`m",
+                        "replace_with": ""
+                    },
+                    "prefix_direction": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){8}(?P<prefix_direction>[^\\t]*)`m",
+                        "replace_with": ""
+                    },
+                    "street_name": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){10}(?P<street_name>[^\\t]*)`m",
+                        "replace_with": ""
+                    },
+                    "street_type": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){11}(?P<street_type>[^\\t]*)`m",
+                        "replace_with": ""
+                    },
+                    "suffix_direction": {
+                        "regex": "`^INCI(?:[^\\t]*\\t){12}(?P<prefix_direction>[^\\t]*)`m",
+                        "replace_with": ""
+                    },
+                    "ems_incident_number": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "ems_response_number": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "aid_type_code": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus": {
+                        "regex": "`^UNIT(?P<apparatus>.+?)\\R`m",
+                        "replace_with": ""
+                    },
+                    "apparatus_code": {
+                        "regex": "`^(?:[^\\t]*\\t){2}(?P<apparatus_code>[^\\t]*)`",
+                        "replace_with": ""
+                    },
+                    "apparatus_is_aid": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus_dispatched_at": {
+                        "regex": "`^(?:[^\\t]*\\t){8}(?P<apparatus_dispatched_at>\\d{2}\/\\d{2}\/\\d{4}\\s\\d{2}:\\d{2}:\\d{2})`",
+                        "replace_with": ""
+                    },
+                    "apparatus_dispatch_ack_at": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus_enrouted_at": {
+                        "regex": "`^(?:[^\\t]*\\t){10}(?P<apparatus_enrouted_at>\\d{2}\\\/\\d{2}\\\/\\d{4}\\s\\d{2}:\\d{2}:\\d{2})`",
+                        "replace_with": ""
+                    },
+                    "apparatus_arrived_staging_at": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus_arrived_at": {
+                        "regex": "`^(?:[^\\t]*\\t){15}(?P<apparatus_arrived_at>\\d{2}\/\\d{2}\/\\d{4}\\s\\d{2}:\\d{2}:\\d{2})`",
+                        "replace_with": ""
+                    },
+                    "apparatus_unit_left_scene_at": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus_cleared_at": {
+                        "regex": "`^(?:[^\\t]*\\t){23}(?P<apparatus_cleared_at>\\d{2}\/\\d{2}\/\\d{4}\\s\\d{2}:\\d{2}:\\d{2})`",
+                        "replace_with": ""
+                    },
+                    "apparatus_back_in_service_at": {
+                        "regex": "`^(?:[^\\t]*\\t){25}(?P<apparatus_back_in_service_at>\\d{2}\/\\d{2}\/\\d{4}\\s\\d{2}:\\d{2}:\\d{2})`",
+                        "replace_with": ""
+                    },
+                    "apparatus_back_home_location_at": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus_canceled_at": {
+                        "regex": "`^(?:[^\\t]*\\t){13}(?P<apparatus_canceled_at>\\d{2}\/\\d{2}\/\\d{4}\\s\\d{2}:\\d{2}:\\d{2})`",
+                        "replace_with": ""
+                    },
+                    "apparatus_patient_transferred_at": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus_patient_arrived_at": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus_arr_dest_land_area_at": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus_patient_arrive_dest_at": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus_dest_pat_trans_care_at": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus_canceled_stage_code": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus_beginning_odo": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus_on_scene_odo": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus_patient_dest_odo": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus_ending_odo": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "apparatus_response_mode": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "personnel": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "personnel_first_name": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "personnel_last_name": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "personnel_middle_initial": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "personnel_agency_id": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "personnel_xref_id": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "narrative": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "narrative_text": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "narrative_when": {
+                        "regex": "``",
+                        "replace_with": ""
+                    },
+                    "extra": []
+                },
+                "xpaths": {
+                    "batt_dept_id": "",
+                    "dispatch_type": "",
+                    "incident_type_code": "",
+                    "dispatch_incident_type_id": "",
+                    "place_name": "",
+                    "address": "",
+                    "unit": "",
+                    "cross_streets": "",
+                    "city": "",
+                    "state_code": "",
+                    "longitude": "",
+                    "latitude": "",
+                    "dispatch_units": "",
+                    "call_notes": "",
+                    "xref_id": "",
+                    "nfirs_incident_number": "",
+                    "status_code": "",
+                    "location_info": "",
+                    "venue": "",
+                    "created_at": "",
+                    "command": "",
+                    "caller_name": "",
+                    "radio_channel": "",
+                    "original_message": "",
+                    "psap_call_at": "",
+                    "alarm_at": "",
+                    "dispatch_notified_at": "",
+                    "call_transferred_at": "",
+                    "psap_call_answered_at": "",
+                    "alarms": "",
+                    "zip_code": "",
+                    "fdid_number": "",
+                    "controlled_at": "",
+                    "call_completed_at": "",
+                    "fire_station_num": "",
+                    "shift_name": "",
+                    "notification_type": "",
+                    "officer_in_charge": "",
+                    "emd_card_number": "",
+                    "ems_dispatch_priority": "",
+                    "zone": "",
+                    "ofm_location_code": "",
+                    "house_num": "",
+                    "prefix_direction": "",
+                    "street_name": "",
+                    "street_type": "",
+                    "suffix_direction": "",
+                    "ems_incident_number": "",
+                    "ems_response_number": "",
+                    "aid_type_code": "",
+                    "apparatus": "",
+                    "apparatus_code": "",
+                    "apparatus_is_aid": "",
+                    "apparatus_dispatched_at": "",
+                    "apparatus_dispatch_ack_at": "",
+                    "apparatus_enrouted_at": "",
+                    "apparatus_arrived_staging_at": "",
+                    "apparatus_arrived_at": "",
+                    "apparatus_unit_left_scene_at": "",
+                    "apparatus_cleared_at": "",
+                    "apparatus_back_in_service_at": "",
+                    "apparatus_back_home_location_at": "",
+                    "apparatus_canceled_at": "",
+                    "apparatus_patient_transferred_at": "",
+                    "apparatus_patient_arrived_at": "",
+                    "apparatus_arr_dest_land_area_at": "",
+                    "apparatus_patient_arrive_dest_at": "",
+                    "apparatus_dest_pat_trans_care_at": "",
+                    "apparatus_canceled_stage_code": "",
+                    "apparatus_beginning_odo": "",
+                    "apparatus_on_scene_odo": "",
+                    "apparatus_patient_dest_odo": "",
+                    "apparatus_ending_odo": "",
+                    "apparatus_response_mode": "",
+                    "personnel": "",
+                    "personnel_first_name": "",
+                    "personnel_last_name": "",
+                    "personnel_middle_initial": "",
+                    "personnel_agency_id": "",
+                    "personnel_xref_id": "",
+                    "narrative": "",
+                    "narrative_text": "",
+                    "narrative_when": "",
+                    "extra": []
+                },
+                "indexes": [],
+                "fixed_formats": [],
+                "delimiter": "",
+                "wrapping_tag": "",
+                "has_ignore_attached_file": false,
+                "is_ignored_when_has_attached_file": [],
+                "force_mutex": false,
+                "use_distributed_mutex": false
+            },
+            "setup_options": {
+                "protocol": "sftp",
+                "sleep": 1,
+                "sleep_on_error": 60,
+                "enable_notification": true,
+                "close_tag": "",
+                "sort_files_by_date": false,
+                "logger": {
+                    "verb": false,
+                    "debug": false,
+                    "info": false,
+                    "warn": false,
+                    "error": true,
+                    "fatal": false
+                }
+            },
+            "preparations": [
+                {
+                    "type": "FilterListByFileNameRegex",
+                    "preparation_type": "list",
+                    "params": {
+                        "regex": "`\\d+\\.fh`i",
+                        "move_not_processed_files": false
+                    }
+                }
+            ],
+            "processing_options": [],
+            "transformations": [
+                {
+                    "type": "FieldRegexReplace",
+                    "name": "",
+                    "motive": "",
+                    "params": {
+                        "field_name": "dispatch_type",
+                        "regex": "`\\s{2,}`s",
+                        "replace_with": " ",
+                        "run_at": "after_parse"
+                    },
+                    "disabled": false
+                },
+                {
+                    "type": "SetFieldValueFromOtherField",
+                    "name": "",
+                    "motive": "",
+                    "params": {
+                        "from_field_name": "incident_type_code",
+                        "to_field_name": "dispatch_type",
+                        "regex": "``",
+                        "replace_with": "",
+                        "run_at": "after_parse"
+                    },
+                    "disabled": false
+                },
+                {
+                    "type": "CleanDispatchType",
+                    "name": "",
+                    "motive": "",
+                    "params": {
+                        "run_at": "after_parse"
+                    },
+                    "disabled": false
+                },
+                {
+                    "type": "GenerateAddressFromSegments",
+                    "name": "",
+                    "motive": "",
+                    "params": {
+                        "house_number_field": "house_num",
+                        "prefix_direction_field": "prefix_direction",
+                        "street_name_field": "street_name",
+                        "street_type_field": "street_type",
+                        "suffix_direction_field": "suffix_direction",
+                        "unit_designator_abbreviation_field": "",
+                        "unit_designator_number_field": "",
+                        "run_at": "after_parse"
+                    },
+                    "disabled": false
+                },
+                {
+                    "type": "SetIncidentTypeId",
+                    "name": "",
+                    "motive": "",
+                    "params": {
+                        "use_dispatch_type": true,
+                        "use_incident_type_code": true,
+                        "find_by_name": true,
+                        "find_by_code": true,
+                        "rewrite_dispatch_type_using_code_and_name": false,
+                        "rewrite_dispatch_type_using_name": true,
+                        "run_at": "before_save"
+                    },
+                    "disabled": false
+                },
+                {
+                    "type": "DoNotProcessSameInfo",
+                    "name": "",
+                    "motive": "",
+                    "params": {
+                        "item_type": "both",
+                        "run_at": "before_save"
+                    },
+                    "disabled": false
+                },
+                {
+                    "type": "SetFieldValueIfNullFromOtherField",
+                    "name": "",
+                    "motive": "",
+                    "params": {
+                        "from_field_name": "address",
+                        "to_field_name": "state_code",
+                        "regex": "`.+`",
+                        "replace_with": "OK",
+                        "run_at": "after_parse"
+                    },
+                    "disabled": false
+                },
+                {
+                    "type": "FieldRegexReplace",
+                    "name": "",
+                    "motive": "",
+                    "params": {
+                        "field_name": "call_notes",
+                        "regex": "`\\*\\*`",
+                        "replace_with": "\\r\\n",
+                        "run_at": "after_parse"
+                    },
+                    "disabled": false
+                },
+                {
+                    "type": "GetAllUTCFromLocalTime",
+                    "name": "",
+                    "motive": "",
+                    "params": {
+                        "run_at": "after_parse"
+                    },
+                    "disabled": false
+                }
+            ],
+            "batt_depts": [
+                3150
+            ]
+        }
+    ]
+}

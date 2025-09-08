@@ -1,0 +1,59 @@
+{
+  "config": {
+    "version": "1.0.0",
+    "name": "Sistema de Gestión",
+    "debug": true
+  },
+  "database": {
+    "host": "localhost",
+    "port": 5432,
+    "name": "mi_database",
+    "credentials": {
+      "username": "admin",
+      "password": "secreto123"
+    }
+  },
+  "features": {
+    "authentication": true,
+    "logging": {
+      "level": "INFO",
+      "file": "app.log"
+    },
+    "cache": {
+      "enabled": true,
+      "ttl": 3600
+    }
+  },
+  "example_data": {
+    "users": [
+      {
+        "id": 101,
+        "name": "Juan Ejemplo",
+        "email": "juan.ejemplo@test.com"
+      },
+      {
+        "id": 102,
+        "name": "María Ejemplo",
+        "email": "maria.ejemplo@test.com"
+      }
+    ],
+    "products": [
+      {"id": 1, "name": "Producto A", "price": 100.50},
+      {"id": 2, "name": "Producto B", "price": 200.75}
+    ]
+  },
+  "users": [
+    {
+      "id": 1,
+      "name": "Juan Pérez",
+      "email": "juan@ejemplo.com",
+      "roles": ["admin", "user"]
+    },
+    {
+      "id": 2,
+      "name": "María García",
+      "email": "maria@ejemplo.com",
+      "roles": ["user"]
+    }
+  ]
+}
