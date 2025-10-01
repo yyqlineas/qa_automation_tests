@@ -280,128 +280,160 @@ def main():
     
     # Conectar a la base de datos
     if not verificador.conectar_bd():
+        print("❌ No se pudo conectar a la base de datos")
+        input("Presione Enter para salir...")
         return
     
     try:
-        # Solicitar datos de entrada
-        print("📝 FORMATO DE ENTRADA DE DATOS")
-        print("-" * 32)
-        print("💡 Ingrese los pares ID-ClientCode que desea verificar:")
-        print()
-        print("📋 FORMATO ACEPTADO:")
-        print("   • Separados por espacios: ID ClientCode ID2 ClientCode2")
-        print("   • Separados por comas: ID,ClientCode,ID2,ClientCode2") 
-        print("   • Orden flexible: ClientCode ID o ID ClientCode")
-        print()
-        print("📌 EJEMPLOS VÁLIDOS:")
-        print("   ✓ 4471 ALPINE_TOWNSHIP_MI")
-        print("   ✓ 4471 ALPINE_TOWNSHIP_MI 2083 MARION_IL")
-        print("   ✓ ALPINE_TOWNSHIP_MI 4471")
-        print("   ✓ 4471,ALPINE_TOWNSHIP_MI,2083,MARION_IL")
-        print()
-        print("🔍 QUÉ VERIFICA EL SCRIPT:")
-        print("   • Si el ID (batt_dept_id) corresponde al CLIENT_CODE correcto")
-        print("   • Si hay discrepancias, puede corregirlas automáticamente")
-        print("   • Reasigna IDs cuando hay conflictos")
-        print()
-        
-        entrada = input("➡️  Ingrese los datos a verificar: ").strip()
-        if not entrada:
-            print("✗ No se ingresaron datos")
-            return
-        
-        # Parsear entrada
-        verificaciones = parsear_entrada(entrada)
-        if not verificaciones:
-            print("✗ No se pudieron parsear los datos de entrada")
-            return
-        
-        print(f"\n📋 Se verificarán {len(verificaciones)} pares:")
-        for batt_dept_id, client_code in verificaciones:
-            print(f"   ID: {batt_dept_id} - Client Code: {client_code}")
-        print()
-        
-        # Realizar verificaciones
-        resultados = []
-        for batt_dept_id, client_code in verificaciones:
-            print(f"🔍 Verificando ID {batt_dept_id} con {client_code}...")
-            
-            correcto, info = verificador.verificar_correspondencia(batt_dept_id, client_code)
-            
-            if correcto:
-                print(f"✓ CORRECTO: {info}")
-                resultados.append((batt_dept_id, client_code, True, None))
-            else:
-                print(f"✗ INCORRECTO: No coinciden")
-                
-                # Verificar qué está en cada lugar
-                encontrado_id, datos_id = verificador.buscar_por_id(batt_dept_id)
-                encontrado_cc, datos_cc = verificador.buscar_por_client_code(client_code)
-                
-                info_error = {
-                    'id_ocupado_por': datos_id[1] if encontrado_id and datos_id else None,
-                    'client_code_tiene_id': datos_cc[0] if encontrado_cc and datos_cc else None
-                }
-                
-                if encontrado_id and datos_id:
-                    print(f"  El ID {batt_dept_id} está asignado a: {datos_id[1]} ({datos_id[2]})")
-                if encontrado_cc and datos_cc:
-                    print(f"  El client_code {client_code} tiene ID: {datos_cc[0]} ({datos_cc[2]})")
-                
-                resultados.append((batt_dept_id, client_code, False, info_error))
+        while True:  # Bucle principal para múltiples verificaciones
+            # Solicitar datos de entrada
+            print("📝 FORMATO DE ENTRADA DE DATOS")
+            print("-" * 32)
+            print("💡 Ingrese los pares ID-ClientCode que desea verificar:")
             print()
-        
-        # Procesar correcciones
-        hay_errores = any(not resultado[2] for resultado in resultados)
-        
-        if hay_errores:
-            print("\n🔧 Se encontraron discrepancias. ¿Desea corregirlas?")
-            respuesta = input("Ingrese 'si' para continuar con las correcciones: ").strip().lower()
+            print("📋 FORMATO ACEPTADO:")
+            print("   • Separados por espacios: ID ClientCode ID2 ClientCode2")
+            print("   • Separados por comas: ID,ClientCode,ID2,ClientCode2") 
+            print("   • Orden flexible: ClientCode ID o ID ClientCode")
+            print()
+            print("📌 EJEMPLOS VÁLIDOS:")
+            print("   ✓ 4471 ALPINE_TOWNSHIP_MI")
+            print("   ✓ 4471 ALPINE_TOWNSHIP_MI 2083 MARION_IL")
+            print("   ✓ ALPINE_TOWNSHIP_MI 4471")
+            print("   ✓ 4471,ALPINE_TOWNSHIP_MI,2083,MARION_IL")
+            print()
+            print("🔍 QUÉ VERIFICA EL SCRIPT:")
+            print("   • Si el ID (batt_dept_id) corresponde al CLIENT_CODE correcto")
+            print("   • Si hay discrepancias, puede corregirlas automáticamente")
+            print("   • Reasigna IDs cuando hay conflictos")
+            print()
             
-            if respuesta in ['si', 'sí', 's', 'yes', 'y']:
-                print("\n🚀 Iniciando correcciones automáticas...")
+            entrada = input("➡️  Ingrese los datos a verificar: ").strip()
+            if not entrada:
+                print("✗ No se ingresaron datos")
+                continue  # Volver a pedir datos
+            
+            # Parsear entrada
+            verificaciones = parsear_entrada(entrada)
+            if not verificaciones:
+                print("✗ No se pudieron parsear los datos de entrada")
+                continue  # Volver a pedir datos
+            
+            print(f"\n📋 Se verificarán {len(verificaciones)} pares:")
+            for batt_dept_id, client_code in verificaciones:
+                print(f"   ID: {batt_dept_id} - Client Code: {client_code}")
+            print()
+            
+            # Realizar verificaciones
+            resultados = []
+            for batt_dept_id, client_code in verificaciones:
+                print(f"🔍 Verificando ID {batt_dept_id} con {client_code}...")
                 
-                for batt_dept_id, client_code, es_correcto, info_error in resultados:
-                    if not es_correcto:
-                        print(f"\n🔧 Corrigiendo ID {batt_dept_id} - {client_code}...")
-                        
-                        # Verificar si el client_code existe en la BD
-                        encontrado_cc, datos_cc = verificador.buscar_por_client_code(client_code)
-                        if not encontrado_cc or not datos_cc:
-                            print(f"❌ Error: El client_code {client_code} no existe en la base de datos")
-                            continue
-                        
-                        # Verificar si el ID está ocupado (consulta fresca)
-                        encontrado_id, datos_id = verificador.buscar_por_id(batt_dept_id)
-                        
-                        if encontrado_id and datos_id and datos_id[1] != client_code:
-                            # El ID está ocupado por otro client_code, hacer reasignación
-                            exito = verificador.reasignar_id(
-                                batt_dept_id, 
-                                client_code, 
-                                datos_id[1]  # client_code que ocupa actualmente el ID
-                            )
-                        elif not encontrado_id or not datos_id:
-                            # El ID está libre, solo mover el client_code al ID deseado
-                            id_actual_client = datos_cc[0]
-                            exito = verificador.actualizar_id(id_actual_client, batt_dept_id, client_code)
-                        else:
-                            # Ya está correcto
-                            exito = True
-                            print(f"✓ {client_code} ya está en el ID {batt_dept_id}")
-                        
-                        if exito:
-                            print(f"✅ Corrección exitosa para ID {batt_dept_id} - {client_code}")
-                        else:
-                            print(f"❌ Error al corregir ID {batt_dept_id} - {client_code}")
+                correcto, info = verificador.verificar_correspondencia(batt_dept_id, client_code)
                 
-                # Mostrar estado final
-                print("\n⏳ Verificando estado final...")
-                verificador.mostrar_estado_final(verificaciones)
+                if correcto:
+                    print(f"✓ CORRECTO: {info}")
+                    resultados.append((batt_dept_id, client_code, True, None))
+                else:
+                    print(f"✗ INCORRECTO: No coinciden")
+                    
+                    # Verificar qué está en cada lugar
+                    encontrado_id, datos_id = verificador.buscar_por_id(batt_dept_id)
+                    encontrado_cc, datos_cc = verificador.buscar_por_client_code(client_code)
+                    
+                    info_error = {
+                        'id_ocupado_por': datos_id[1] if encontrado_id and datos_id else None,
+                        'client_code_tiene_id': datos_cc[0] if encontrado_cc and datos_cc else None
+                    }
+                    
+                    if encontrado_id and datos_id:
+                        print(f"  El ID {batt_dept_id} está asignado a: {datos_id[1]} ({datos_id[2]})")
+                    if encontrado_cc and datos_cc:
+                        print(f"  El client_code {client_code} tiene ID: {datos_cc[0]} ({datos_cc[2]})")
+                    
+                    resultados.append((batt_dept_id, client_code, False, info_error))
+                print()
+            
+            # Procesar correcciones
+            hay_errores = any(not resultado[2] for resultado in resultados)
+            correcciones_realizadas = False
+            
+            if hay_errores:
+                print("\n🔧 Se encontraron discrepancias. ¿Desea corregirlas?")
+                respuesta = input("Ingrese 'si' para continuar con las correcciones: ").strip().lower()
+                
+                if respuesta in ['si', 'sí', 's', 'yes', 'y']:
+                    print("\n🚀 Iniciando correcciones automáticas...")
+                    correcciones_realizadas = True
+                    
+                    for batt_dept_id, client_code, es_correcto, info_error in resultados:
+                        if not es_correcto:
+                            print(f"\n🔧 Corrigiendo ID {batt_dept_id} - {client_code}...")
+                            
+                            # Verificar si el client_code existe en la BD
+                            encontrado_cc, datos_cc = verificador.buscar_por_client_code(client_code)
+                            if not encontrado_cc or not datos_cc:
+                                print(f"❌ Error: El client_code {client_code} no existe en la base de datos")
+                                continue
+                            
+                            # Verificar si el ID está ocupado (consulta fresca)
+                            encontrado_id, datos_id = verificador.buscar_por_id(batt_dept_id)
+                            
+                            if encontrado_id and datos_id and datos_id[1] != client_code:
+                                # El ID está ocupado por otro client_code, hacer reasignación
+                                exito = verificador.reasignar_id(
+                                    batt_dept_id, 
+                                    client_code, 
+                                    datos_id[1]  # client_code que ocupa actualmente el ID
+                                )
+                            elif not encontrado_id or not datos_id:
+                                # El ID está libre, solo mover el client_code al ID deseado
+                                id_actual_client = datos_cc[0]
+                                exito = verificador.actualizar_id(id_actual_client, batt_dept_id, client_code)
+                            else:
+                                # Ya está correcto
+                                exito = True
+                                print(f"✓ {client_code} ya está en el ID {batt_dept_id}")
+                            
+                            if exito:
+                                print(f"✅ Corrección exitosa para ID {batt_dept_id} - {client_code}")
+                            else:
+                                print(f"❌ Error al corregir ID {batt_dept_id} - {client_code}")
+                    
+                    # Mostrar estado final
+                    print("\n⏳ Verificando estado final...")
+                    verificador.mostrar_estado_final(verificaciones)
+                else:
+                    print("ℹ️  Correcciones canceladas por el usuario")
             else:
-                print("ℹ️  Correcciones canceladas por el usuario")
-        else:
-            print("✅ Todas las verificaciones son correctas")
+                print("✅ Todas las verificaciones son correctas")
+            
+            # Mostrar resumen
+            print(f"\n{'='*60}")
+            print("📋 RESUMEN DEL PROCESO:")
+            print(f"   📊 Pares verificados: {len(verificaciones)}")
+            print(f"   ⚠️ Discrepancias encontradas: {len([r for r in resultados if not r[2]])}")
+            if hay_errores:
+                print(f"   🔧 Correcciones realizadas: {'Sí' if correcciones_realizadas else 'No'}")
+            print(f"{'='*60}")
+            
+            # SIEMPRE preguntar si continuar
+            print(f"\n{'-'*60}")
+            print("🔄 ¿Desea verificar otro batt_dept_id?")
+            print("   📝 Ingrese 'si' para continuar")
+            print("   📝 Ingrese cualquier otra cosa para salir")
+            respuesta_continuar = input("➡️ Su respuesta: ").lower().strip()
+            
+            if respuesta_continuar != 'si':
+                print(f"\n✅ Saliendo del verificador de batt_dept_id...")
+                print("   Gracias por usar la herramienta!")
+                break
+            
+            # Limpiar pantalla visualmente para nueva verificación
+            print(f"\n{'='*60}")
+            print("🔄 NUEVA VERIFICACIÓN")
+            print(f"{'='*60}")
+            print()
     
     except KeyboardInterrupt:
         print("\n\n⚠️  Operación cancelada por el usuario")
@@ -409,6 +441,7 @@ def main():
         print(f"\n✗ Error inesperado: {e}")
     finally:
         verificador.desconectar_bd()
+        print("\n✅ Conexión cerrada")
 
 if __name__ == "__main__":
     main()

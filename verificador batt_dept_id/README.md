@@ -4,11 +4,11 @@
 Aplicación independiente para verificar y corregir correspondencias entre `batt_dept_id` (campo `id`) y `client_code` en la tabla `batt_dept` de la base de datos.
 
 ## 🚀 Ejecución Rápida
-**Simplemente haga doble clic en:** `ejecutar_verificador.bat`
+**Simplemente haga doble clic en:** `verificador_batt_dept.bat`
 
 ## 📁 Archivos Incluidos
 - `verificador_batt_dept.py` - Script principal de Python
-- `ejecutar_verificador.bat` - Ejecutable para Windows
+- `verificador_batt_dept.bat` - Ejecutable para Windows
 - `README.md` - Este archivo de documentación
 
 ## ⚙️ Requisitos del Sistema
@@ -63,7 +63,7 @@ ALPINE_TOWNSHIP_MI 4471
 
 ## 🔄 Proceso de Uso
 
-1. **Ejecutar:** Doble clic en `ejecutar_verificador.bat`
+1. **Ejecutar:** Doble clic en `verificador_batt_dept.bat`
 2. **Verificar conexión:** El script se conecta automáticamente a la BD
 3. **Ingresar datos:** Seguir el formato indicado en pantalla
 4. **Revisar resultados:** Ver qué está correcto e incorrecto

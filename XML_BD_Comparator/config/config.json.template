@@ -1,14 +1,33 @@
 {
   "database": {
-    "host": "localhost",
+    "host": "tu_servidor.com",
     "port": 5432,
-    "dbname": "your_database",
-    "user": "your_username",
-    "password": "your_password"
+    "dbname": "tu_base_de_datos",
+    "user": "tu_usuario",
+    "password": "tu_contraseña"
   },
   "filters": {
-    "date_column": "incident_created_date",
-    "date_format": "%Y-%m-%d %H:%M:%S",
-    "comments": "Modifica estos valores según tu cliente y necesidades. El formato de fecha debe coincidir con el formato en tu base de datos."
+    "batt_dept_id": {
+      "column_name": "batt_dept_id",
+      "values": [4493],
+      "comments": "Este campo se usará para filtrar en todas las tablas. Puedes agregar múltiples valores: [4493, 1234, 5678]"
+    },
+    "datetime": {
+      "column_name": "created_at",
+      "start_datetime": "2025-09-10 00:00:00",
+      "format": "%Y-%m-%d %H:%M:%S",
+      "comments": "Formato: YYYY-MM-DD HH:MI:SS - Solo se incluirán registros con created_at >= esta fecha"
+    }
+  },
+  "paths": {
+    "xml_folder": "C:/ruta/a/tus/xmls",
+    "mappings_file": "xpath_mappings.xlsx",
+    "output_folder": "reportes"
+  },
+  "xpath_conditional_examples": {
+    "comments": "Ejemplos de XPath con condiciones soportadas:",
+    "example_1": "//CombinedIncidentVehicleData/Vehicles/VehicleData[UnitCode != 'Batt_ID']/UnitCode",
+    "example_2": "//Incident/Units/Unit[UnitDisposition/Description = 'Cancelled']/TimeCallCleared",
+    "example_3": "//Parent/Child[Status = 'Active']/Value + //Parent/Other[Type = 'Primary']/Data"
   }
 }

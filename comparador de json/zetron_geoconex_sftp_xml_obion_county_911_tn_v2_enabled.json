@@ -1,0 +1,473 @@
+{
+    "templates": [
+        {
+            "name": "Zetron GeoConex Sftp Xml Obion County 911 TN",
+            "cad_vendor": "ZETRON_GEOCONEX",
+            "dispatch_entity_name": "OBION_COUNTY_911_TN",
+            "comments": null,
+            "data_source": "sftp\/xml",
+            "encoding": null,
+            "parser_type": "xpath",
+            "status_code": "enabled",
+            "version": "2",
+            "example_data": [
+                {
+                    "name": "Example #1",
+                    "value": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<FirstDueExport xmlns:xsi=\"http:\/\/www.w3.org\/2001\/XMLSchema-instance\" xmlns:xsd=\"http:\/\/www.w3.org\/2001\/XMLSchema\">\n <DispatchData>\n  <Type>STRUCTURE FIRE<\/Type>\n  <Message>[2025-01-15 14:30:25] [DISPATCH] STRUCTURE FIRE REPORTED AT 123 MAIN ST<\/Message>\n  <Address>123 MAIN ST<\/Address>\n  <UnitApt>APT 2B<\/UnitApt>\n  <City>UNION CITY<\/City>\n  <State_Code>TN<\/State_Code>\n  <Latitude>36.4242<\/Latitude>\n  <Longitude>-89.0569<\/Longitude>\n  <Resources>U4100, U4151, U4152<\/Resources>\n  <EventCode>STRUCTURE FIRE<\/EventCode>\n  <XrefId>20250115-001<\/XrefId>\n <\/DispatchData>\n <NFIRSData>\n  <DispatchNumber>20250115-001<\/DispatchNumber>\n  <DispatchType>STRUCTURE FIRE<\/DispatchType>\n  <DispatchIncidentTypeCode>111<\/DispatchIncidentTypeCode>\n  <AlarmAt>2025-01-15T14:30:25-06:00<\/AlarmAt>\n  <DispatchNotifiedAt>2025-01-15T14:32:15-06:00<\/DispatchNotifiedAt>\n  <Alarms>1<\/Alarms>\n  <PlaceName>SMITH RESIDENCE<\/PlaceName>\n  <LocationInfo>RESIDENTIAL STRUCTURE<\/LocationInfo>\n  <Venue>Single Family Dwelling<\/Venue>\n  <Address>123 MAIN ST<\/Address>\n  <Unit>APT 2B<\/Unit>\n  <CrossStreets>MAIN ST \/ OAK AVE<\/CrossStreets>\n  <City>UNION CITY<\/City>\n  <StateCode>TN<\/StateCode>\n  <Latitude>36.4242<\/Latitude>\n  <Longitude>-89.0569<\/Longitude>\n  <Narratives>[2025-01-15 14:30:25] [DISPATCH] STRUCTURE FIRE REPORTED AT 123 MAIN ST<\/Narratives>\n  <ShiftName>A SHIFT<\/ShiftName>\n  <NotificationType>PHONE<\/NotificationType>\n  <Id>1<\/Id>\n <\/NFIRSData>\n <FirstDueNFIRSApparatuses>\n  <Apparatus>\n   <UnitCode>U4100<\/UnitCode>\n   <IsAid>false<\/IsAid>\n   <DispatchAt>2025-01-15T14:32:15-06:00<\/DispatchAt>\n   <EnrouteAt>2025-01-15T14:35:20-06:00<\/EnrouteAt>\n   <ArriveAt>2025-01-15T14:38:45-06:00<\/ArriveAt>\n   <ClearAt>2025-01-15T16:45:30-06:00<\/ClearAt>\n   <Id>1<\/Id>\n   <Personnels>\n    <Personnel>\n     <FirstName>JOHN<\/FirstName>\n     <LastName>SMITH<\/LastName>\n     <MiddleInitial>M<\/MiddleInitial>\n     <AgencyId>OCFD001<\/AgencyId>\n     <XrefId>EMP001<\/XrefId>\n    <\/Personnel>\n   <\/Personnels>\n  <\/Apparatus>\n  <Apparatus>\n   <UnitCode>U4151<\/UnitCode>\n   <IsAid>false<\/IsAid>\n   <DispatchAt>2025-01-15T14:32:20-06:00<\/DispatchAt>\n   <EnrouteAt>2025-01-15T14:36:10-06:00<\/EnrouteAt>\n   <ArriveAt>2025-01-15T14:40:15-06:00<\/ArriveAt>\n   <ClearAt>2025-01-15T16:50:45-06:00<\/ClearAt>\n   <Id>2<\/Id>\n   <Personnels>\n    <Personnel>\n     <FirstName>JANE<\/FirstName>\n     <LastName>DOE<\/LastName>\n     <MiddleInitial>L<\/MiddleInitial>\n     <AgencyId>OCFD002<\/AgencyId>\n     <XrefId>EMP002<\/XrefId>\n    <\/Personnel>\n   <\/Personnels>\n  <\/Apparatus>\n  <Apparatus>\n   <UnitCode>U4152<\/UnitCode>\n   <IsAid>false<\/IsAid>\n   <DispatchAt>2025-01-15T14:32:25-06:00<\/DispatchAt>\n   <EnrouteAt>2025-01-15T14:37:00-06:00<\/EnrouteAt>\n   <ArriveAt>2025-01-15T14:42:30-06:00<\/ArriveAt>\n   <ClearAt>2025-01-15T17:00:15-06:00<\/ClearAt>\n   <Id>3<\/Id>\n   <Personnels>\n    <Personnel>\n     <FirstName>MIKE<\/FirstName>\n     <LastName>JOHNSON<\/LastName>\n     <MiddleInitial>R<\/MiddleInitial>\n     <AgencyId>OCFD003<\/AgencyId>\n     <XrefId>EMP003<\/XrefId>\n    <\/Personnel>\n   <\/Personnels>\n  <\/Apparatus>\n <\/FirstDueNFIRSApparatuses>\n<\/FirstDueExport>\n",
+                    "expected_result": {
+                        "address": "123 MAIN ST",
+                        "unit": "APT 2B",
+                        "city": "UNION CITY",
+                        "longitude": "-89.0569",
+                        "latitude": "36.4242",
+                        "venue": "Single Family Dwelling",
+                        "alarms": "FIRST ALARM",
+                        "dispatch_units": ["U4100", "U4151", "U4152"],
+                        "apparatus": [
+                            {
+                                "apparatus_code": "U4100",
+                                "apparatus_is_aid": false,
+                                "apparatus_dispatch_ack_at": "2025-01-15 14:32:15",
+                                "apparatus_enrouted_at": "2025-01-15 14:35:20",
+                                "apparatus_arrived_at": "2025-01-15 14:38:45",
+                                "apparatus_unit_left_scene_at": "2025-01-15 16:45:30",
+                                "apparatus_cleared_at": "2025-01-15 16:45:30",
+                                "apparatus_back_in_service_at": "2025-01-15 16:45:30",
+                                "personnel": [
+                                    {
+                                        "personnel_first_name": "JOHN",
+                                        "personnel_last_name": "SMITH",
+                                        "personnel_middle_initial": "M",
+                                        "personnel_agency_id": "OCFD001",
+                                        "personnel_xref_id": "EMP001"
+                                    }
+                                ]
+                            },
+                            {
+                                "apparatus_code": "U4151",
+                                "apparatus_is_aid": false,
+                                "apparatus_dispatch_ack_at": "2025-01-15 14:32:20",
+                                "apparatus_enrouted_at": "2025-01-15 14:36:10",
+                                "apparatus_arrived_at": "2025-01-15 14:40:15",
+                                "apparatus_unit_left_scene_at": "2025-01-15 16:50:45",
+                                "apparatus_cleared_at": "2025-01-15 16:50:45",
+                                "apparatus_back_in_service_at": "2025-01-15 16:50:45",
+                                "personnel": [
+                                    {
+                                        "personnel_first_name": "JANE",
+                                        "personnel_last_name": "DOE",
+                                        "personnel_middle_initial": "L",
+                                        "personnel_agency_id": "OCFD002",
+                                        "personnel_xref_id": "EMP002"
+                                    }
+                                ]
+                            },
+                            {
+                                "apparatus_code": "U4152",
+                                "apparatus_is_aid": false,
+                                "apparatus_dispatch_ack_at": "2025-01-15 14:32:25",
+                                "apparatus_enrouted_at": "2025-01-15 14:37:00",
+                                "apparatus_arrived_at": "2025-01-15 14:42:30",
+                                "apparatus_unit_left_scene_at": "2025-01-15 17:00:15",
+                                "apparatus_cleared_at": "2025-01-15 17:00:15",
+                                "apparatus_back_in_service_at": "2025-01-15 17:00:15",
+                                "personnel": [
+                                    {
+                                        "personnel_first_name": "MIKE",
+                                        "personnel_last_name": "JOHNSON",
+                                        "personnel_middle_initial": "R",
+                                        "personnel_agency_id": "OCFD003",
+                                        "personnel_xref_id": "EMP003"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Example #2 - Medical Emergency with Aid Units",
+                    "value": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<FirstDueExport xmlns:xsi=\"http:\/\/www.w3.org\/2001\/XMLSchema-instance\" xmlns:xsd=\"http:\/\/www.w3.org\/2001\/XMLSchema\">\n <DispatchData>\n  <Type>MEDICAL EMERGENCY<\/Type>\n  <Message>[2025-01-15 16:45:10] [DISPATCH] MEDICAL EMERGENCY - CHEST PAIN AT 456 ELM ST<\/Message>\n  <Address>456 ELM ST<\/Address>\n  <UnitApt><\/UnitApt>\n  <City>UNION CITY<\/City>\n  <State_Code>TN<\/State_Code>\n  <Latitude>36.4300<\/Latitude>\n  <Longitude>-89.0500<\/Longitude>\n  <Resources>U4161, U4171<\/Resources>\n  <EventCode>MEDICAL EMERGENCY<\/EventCode>\n  <XrefId>20250115-002<\/XrefId>\n <\/DispatchData>\n <NFIRSData>\n  <DispatchNumber>20250115-002<\/DispatchNumber>\n  <DispatchType>MEDICAL EMERGENCY<\/DispatchType>\n  <DispatchIncidentTypeCode>321<\/DispatchIncidentTypeCode>\n  <AlarmAt>2025-01-15T16:45:10-06:00<\/AlarmAt>\n  <DispatchNotifiedAt>2025-01-15T16:46:30-06:00<\/DispatchNotifiedAt>\n  <Alarms><\/Alarms>\n  <PlaceName>JOHNSON RESIDENCE<\/PlaceName>\n  <LocationInfo>RESIDENTIAL<\/LocationInfo>\n  <Venue>Single Family Dwelling<\/Venue>\n  <Address>456 ELM ST<\/Address>\n  <Unit><\/Unit>\n  <CrossStreets>ELM ST \/ PINE AVE<\/CrossStreets>\n  <City>UNION CITY<\/City>\n  <StateCode>TN<\/StateCode>\n  <Latitude>36.4300<\/Latitude>\n  <Longitude>-89.0500<\/Longitude>\n  <Narratives>[2025-01-15 16:45:10] [DISPATCH] MEDICAL EMERGENCY - CHEST PAIN AT 456 ELM ST<\/Narratives>\n  <ShiftName>B SHIFT<\/ShiftName>\n  <NotificationType>PHONE<\/NotificationType>\n  <Id>2<\/Id>\n <\/NFIRSData>\n <FirstDueNFIRSApparatuses>\n  <Apparatus>\n   <UnitCode>U4161<\/UnitCode>\n   <IsAid>true<\/IsAid>\n   <DispatchAt>2025-01-15T16:46:30-06:00<\/DispatchAt>\n   <EnrouteAt>2025-01-15T16:48:45-06:00<\/EnrouteAt>\n   <ArriveAt>2025-01-15T16:52:20-06:00<\/ArriveAt>\n   <ClearAt>2025-01-15T17:25:10-06:00<\/ClearAt>\n   <Id>4<\/Id>\n   <Personnels>\n    <Personnel>\n     <FirstName>SARAH<\/FirstName>\n     <LastName>WILSON<\/LastName>\n     <MiddleInitial>A<\/MiddleInitial>\n     <AgencyId>OCFD004<\/AgencyId>\n     <XrefId>EMP004<\/XrefId>\n    <\/Personnel>\n   <\/Personnels>\n  <\/Apparatus>\n  <Apparatus>\n   <UnitCode>U4171<\/UnitCode>\n   <IsAid>true<\/IsAid>\n   <DispatchAt>2025-01-15T16:46:35-06:00<\/DispatchAt>\n   <EnrouteAt>2025-01-15T16:49:15-06:00<\/EnrouteAt>\n   <ArriveAt>2025-01-15T16:53:45-06:00<\/ArriveAt>\n   <ClearAt>2025-01-15T17:30:20-06:00<\/ClearAt>\n   <Id>5<\/Id>\n   <Personnels>\n    <Personnel>\n     <FirstName>DAVID<\/FirstName>\n     <LastName>BROWN<\/LastName>\n     <MiddleInitial>K<\/MiddleInitial>\n     <AgencyId>OCFD005<\/AgencyId>\n     <XrefId>EMP005<\/XrefId>\n    <\/Personnel>\n   <\/Personnels>\n  <\/Apparatus>\n <\/FirstDueNFIRSApparatuses>\n<\/FirstDueExport>\n",
+                    "expected_result": {
+                        "dispatch_type": "MEDICAL EMERGENCY",
+                        "incident_type_code": "MEDICAL EMERGENCY",
+                        "dispatch_incident_type_id": "321",
+                        "place_name": "JOHNSON RESIDENCE",
+                        "address": "456 ELM ST",
+                        "unit": "",
+                        "cross_streets": "ELM ST \/ PINE AVE",
+                        "city": "UNION CITY",
+                        "state_code": "TN",
+                        "longitude": "-89.0500",
+                        "latitude": "36.4300",
+                        "dispatch_units": ["U4161", "U4171"],
+                        "call_notes": "[2025-01-15 16:45:10] [DISPATCH] MEDICAL EMERGENCY - CHEST PAIN AT 456 ELM ST",
+                        "xref_id": "20250115-002",
+                        "location_info": "RESIDENTIAL",
+                        "venue": "Single Family Dwelling",
+                        "created_at": "2025-01-15 16:45:10",
+                        "alarm_at": "2025-01-15 16:45:10",
+                        "dispatch_notified_at": "2025-01-15 16:46:30",
+                        "alarms": "",
+                        "shift_name": "B SHIFT",
+                        "notification_type": "PHONE",
+                        "apparatus": [
+                            {
+                                "apparatus_code": "U4161",
+                                "apparatus_is_aid": true,
+                                "apparatus_dispatch_ack_at": "2025-01-15 16:46:30",
+                                "apparatus_enrouted_at": "2025-01-15 16:48:45",
+                                "apparatus_arrived_at": "2025-01-15 16:52:20",
+                                "apparatus_unit_left_scene_at": "2025-01-15 17:25:10",
+                                "apparatus_cleared_at": "2025-01-15 17:25:10",
+                                "apparatus_back_in_service_at": "2025-01-15 17:25:10",
+                                "personnel": [
+                                    {
+                                        "personnel_first_name": "SARAH",
+                                        "personnel_last_name": "WILSON",
+                                        "personnel_middle_initial": "A",
+                                        "personnel_agency_id": "OCFD004",
+                                        "personnel_xref_id": "EMP004"
+                                    }
+                                ]
+                            },
+                            {
+                                "apparatus_code": "U4171",
+                                "apparatus_is_aid": true,
+                                "apparatus_dispatch_ack_at": "2025-01-15 16:46:35",
+                                "apparatus_enrouted_at": "2025-01-15 16:49:15",
+                                "apparatus_arrived_at": "2025-01-15 16:53:45",
+                                "apparatus_unit_left_scene_at": "2025-01-15 17:30:20",
+                                "apparatus_cleared_at": "2025-01-15 17:30:20",
+                                "apparatus_back_in_service_at": "2025-01-15 17:30:20",
+                                "personnel": [
+                                    {
+                                        "personnel_first_name": "DAVID",
+                                        "personnel_last_name": "BROWN",
+                                        "personnel_middle_initial": "K",
+                                        "personnel_agency_id": "OCFD005",
+                                        "personnel_xref_id": "EMP005"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "parser_options": {
+                "object_types": [
+                    {
+                        "batt_dept": 4611,
+                        "object_type": "nfirs"
+                    }
+                ],
+                "is_single_regex": false,
+                "is_multiple_regex": false,
+                "has_pre_processing_regexes": true,
+                "is_multiple_blocks_file": false,
+                "multiple_blocks_delimiter_xpath": "",
+                "is_apparatus_multiple": false,
+                "apparatus_multiple_criteria_field": "",
+                "pre_processing_regexes": [
+                    {
+                        "regex": "`\\sxmlns.*?xmlns.*?\".*?\"`is",
+                        "replace_with": ""
+                    },
+                    {
+                        "regex": "`(\\d+-\\d+-\\d+)T(\\d+:\\d+:\\d+)(?:-\\d+:\\d+)`",
+                        "replace_with": "$1 $2"
+                    }
+                ],
+                "regexes": {},
+                "xpaths": {
+                    "specific_batt_dept_xpaths": [],
+                    "multiple_blocks_common_xpaths": [],
+                    "batt_dept_id": "",
+                    "dispatch_type": "\/\/FirstDueExport\/NFIRSData\/DispatchIncidentTypeCode",
+                    "incident_type_code": "\/\/FirstDueExport\/NFIRSData\/DispatchType",
+                    "dispatch_incident_type_id": "",
+                    "place_name": "\/\/FirstDueExport\/NFIRSData\/PlaceName",
+                    "address": "\/\/FirstDueExport\/NFIRSData\/Address",
+                    "unit": "\/\/FirstDueExport\/NFIRSData\/Unit",
+                    "cross_streets": "\/\/FirstDueExport\/NFIRSData\/CrossStreets",
+                    "city": "\/\/FirstDueExport\/NFIRSData\/City",
+                    "state_code": "\/\/FirstDueExport\/NFIRSData\/StateCode",
+                    "longitude": "\/\/FirstDueExport\/NFIRSData\/Longitude",
+                    "latitude": "\/\/FirstDueExport\/NFIRSData\/Latitude",
+                    "dispatch_units": "\/\/FirstDueExport\/FirstDueNFIRSApparatuses\/Apparatus\/UnitCode",
+                    "call_notes": "\/\/FirstDueExport\/NFIRSData\/Narratives",
+                    "xref_id": "\/\/FirstDueExport\/NFIRSData\/DispatchNumber",
+                    "nfirs_incident_number": "",
+                    "status_code": "",
+                    "location_info": "\/\/FirstDueExport\/NFIRSData\/LocationInfo",
+                    "venue": "\/\/FirstDueExport\/NFIRSData\/Venue",
+                    "created_at": "\/\/FirstDueExport\/NFIRSData\/AlarmAt",
+                    "command": "",
+                    "caller_name": "",
+                    "radio_channel": "",
+                    "original_message": "",
+                    "psap_call_at": "\/\/FirstDueExport\/NFIRSData\/AlarmAt",
+                    "alarm_at": "\/\/FirstDueExport\/NFIRSData\/AlarmAt",
+                    "dispatch_notified_at": "\/\/FirstDueExport\/NFIRSData\/DispatchNotifiedAt",
+                    "call_transferred_at": "",
+                    "psap_call_answered_at": "\/\/FirstDueExport\/NFIRSData\/AlarmAt",
+                    "alarms": "\/\/FirstDueExport\/NFIRSData\/Alarms",
+                    "zip_code": "",
+                    "fdid_number": "",
+                    "controlled_at": "",
+                    "call_completed_at": "",
+                    "fire_station_num": "",
+                    "shift_name": "\/\/FirstDueExport\/NFIRSData\/ShiftName",
+                    "notification_type": "\/\/FirstDueExport\/NFIRSData\/NotificationType",
+                    "officer_in_charge": "",
+                    "emd_card_number": "",
+                    "ems_dispatch_priority": "",
+                    "zone": "",
+                    "ofm_location_code": "",
+                    "house_num": "",
+                    "prefix_direction": "",
+                    "street_name": "",
+                    "street_type": "",
+                    "suffix_direction": "",
+                    "ems_incident_number": "",
+                    "ems_response_number": "",
+                    "aid_type_code": "",
+                    "apparatus": "\/\/FirstDueExport\/FirstDueNFIRSApparatuses\/Apparatus",
+                    "apparatus_code": "UnitCode",
+                    "apparatus_is_aid": "IsAid[text()='true']",
+                    "apparatus_dispatched_at": "",
+                    "apparatus_dispatch_ack_at": "DispatchAt",
+                    "apparatus_enrouted_at": "EnrouteAt",
+                    "apparatus_arrived_staging_at": "",
+                    "apparatus_arrived_at": "ArriveAt",
+                    "apparatus_unit_left_scene_at": "ClearAt",
+                    "apparatus_cleared_at": "ClearAt",
+                    "apparatus_back_in_service_at": "ClearAt",
+                    "apparatus_back_home_location_at": "",
+                    "apparatus_canceled_at": "",
+                    "apparatus_patient_transferred_at": "",
+                    "apparatus_patient_arrived_at": "",
+                    "apparatus_arr_dest_land_area_at": "",
+                    "apparatus_patient_arrive_dest_at": "",
+                    "apparatus_dest_pat_trans_care_at": "",
+                    "apparatus_canceled_stage_code": "",
+                    "apparatus_beginning_odo": "",
+                    "apparatus_on_scene_odo": "",
+                    "apparatus_patient_dest_odo": "",
+                    "apparatus_ending_odo": "",
+                    "apparatus_response_mode": "",
+                    "personnel": "",
+                    "personnel_first_name": "",
+                    "personnel_last_name": "",
+                    "personnel_middle_initial": "",
+                    "personnel_agency_id": "",
+                    "personnel_xref_id": "",
+                    "narrative": "",
+                    "narrative_text": "",
+                    "narrative_when": "",
+                    "extra": []
+                },
+                "wrapping_tag": "",
+                "is_notification_when_single_not_match": false,
+                "force_mutex": false,
+                "use_distributed_mutex": false
+            },
+            "setup_options": {
+                "protocol": "sftp",
+                "sleep": 1,
+                "sleep_on_error": 60,
+                "enable_notification": true,
+                "close_tag": "<\/FirstDueExport>",
+                "sort_files_by_date": false,
+                "logger": {
+                    "verb": false,
+                    "debug": false,
+                    "info": false,
+                    "warn": false,
+                    "error": true,
+                    "fatal": false
+                }
+            },
+            "update_rules": [
+                {
+                    "batt_depts": [
+                        4611
+                    ],
+                    "fields": [
+                        "batt_dept_id",
+                        "xref_id"
+                    ],
+                    "timeframe": 0,
+                    "use_cad_time": false,
+                    "disabled": false,
+                    "default": true,
+                    "conditions": []
+                }
+            ],
+            "preparations": [
+                {
+                    "type": "FilterListByFileNameRegex",
+                    "preparation_type": "list",
+                    "params": {
+                        "regex": "`^FirstDueNFIRS\\d+\\_\\d+\\.xml$`i",
+                        "move_not_processed_files": true
+                    }
+                },
+                {
+                    "type": "CleanContentFromFile",
+                    "preparation_type": "file",
+                    "params": {
+                        "regex": "`<\\?xml[^>]*?>`i",
+                        "replace": ""
+                    }
+                },
+                {
+                    "type": "CleanContentFromFile",
+                    "preparation_type": "file",
+                    "params": {
+                        "regex": "`\\sxmlns.*?xmlns.*?\".*?\"`is",
+                        "replace": ""
+                    }
+                },
+                {
+                    "type": "SortListByFileNameAttr",
+                    "preparation_type": "list",
+                    "params": {
+                        "regex": "`^FirstDueNFIRS(\\d+)\\_(\\d+)\\.xml$`i",
+                        "replace": "$1$2"
+                    }
+                },
+                {
+                    "type": "ExtractInfoFromFileName",
+                    "preparation_type": "file",
+                    "params": {
+                        "regex": "`^FirstDueNFIRS(?:\\d+)\\_(\\d{4})(\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\d{2})\\.xml$`i",
+                        "replace": "$1-$2-$3 $4:$5:$6",
+                        "field_name": "created_at"
+                    }
+                }
+            ],
+            "processing_options": [],
+            "filters": [
+                {
+                    "type": "DispatchUnits",
+                    "params": {
+                        "batt_dept_ids": [],
+                        "field_name": "dispatch_units"
+                    }
+                }
+            ],
+            "transformations": [
+                {
+                    "type": "CleanDispatchType",
+                    "name": "",
+                    "params": {
+                        "run_at": "after_parse"
+                    },
+                    "disabled": false,
+                    "conditions": []
+                },
+                {
+                    "type": "FixLongitudeLatitude",
+                    "name": "",
+                    "params": {
+                        "convert_from_degrees_minutes_seconds": "none",
+                        "round_to_seven_digits": true,
+                        "add_decimal_point_to_latitude": "2",
+                        "add_decimal_point_to_longitude": "2",
+                        "set_negative_longitude": true,
+                        "reference_latitude": null,
+                        "reference_longitude": null,
+                        "run_at": "after_parse",
+                        "source_projection": "EPSG:4326"
+                    },
+                    "disabled": false,
+                    "conditions": []
+                },
+                {
+                    "type": "ForceFieldToBeArray",
+                    "name": "",
+                    "params": {
+                        "field_name": "dispatch_units",
+                        "run_at": "after_parse"
+                    },
+                    "disabled": false,
+                    "conditions": []
+                },
+                {
+                    "type": "ArrayUnique",
+                    "name": "",
+                    "params": {
+                        "field_name": "dispatch_units",
+                        "run_at": "after_parse"
+                    },
+                    "disabled": false,
+                    "conditions": []
+                },
+                {
+                    "type": "SplitFieldIntoSeveralByRegex",
+                    "name": "",
+                    "params": {
+                        "dst_field_names": [
+                            "address",
+                            "unit"
+                        ],
+                        "src_field_name": "address",
+                        "regex": "`^(.+)\\s(?:\\#|(?:APT|STE)\\s)(\\w+)$`",
+                        "run_at": "after_parse"
+                    },
+                    "disabled": false,
+                    "conditions": []
+                },
+                {
+                    "type": "FieldRegexReplace",
+                    "name": "",
+                    "params": {
+                        "field_name": "address",
+                        "regex": "`\\s\\[.+?\\]`is",
+                        "replace_with": "",
+                        "run_at": "after_parse"
+                    },
+                    "disabled": false,
+                    "conditions": []
+                },
+                {
+                    "type": "SetFieldValueFromOtherField",
+                    "name": "",
+                    "params": {
+                        "from_field_name": "address",
+                        "to_field_name": "cross_streets",
+                        "regex": "`^(.+?\\\/.+?)$`isx",
+                        "replace_with": "$1",
+                        "run_at": "after_parse"
+                    },
+                    "disabled": false,
+                    "conditions": [
+                        {
+                            "field": "cross_streets",
+                            "option": "is_empty",
+                            "expression": ""
+                        }
+                    ]
+                },
+                {
+                    "type": "SetIncidentTypeId",
+                    "name": "",
+                    "params": {
+                        "use_dispatch_type": true,
+                        "use_incident_type_code": true,
+                        "find_by_name": true,
+                        "find_by_code": true,
+                        "rewrite_dispatch_type_using_code_and_name": false,
+                        "rewrite_dispatch_type_using_name": true,
+                        "run_at": "before_save"
+                    },
+                    "disabled": false,
+                    "conditions": []
+                }
+            ],
+            "batt_depts": [
+                4611
+            ]
+        }
+    ]
+}

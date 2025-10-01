@@ -42,7 +42,7 @@
 		<FirstUnitDispatchedTime>2025-03-12T09:59:47</FirstUnitDispatchedTime>
 		<FirstUnitEnrouteTime>2025-03-12T09:59:53</FirstUnitEnrouteTime>
 		<FirstUnitArrivedTime>2025-03-12T09:59:56</FirstUnitArrivedTime>
-		<IncidentClosedTime>2025-03-12T10:00:01</IncidentClosedTime>
+		<IncidentClosedTime />
 	</IncidentTimes>
 	<Dispositions>
 		<Disposition>
